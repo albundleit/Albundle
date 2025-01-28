@@ -1,52 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Countdown</title>
-  <style>
-    body {
-      background-color: #FF7F50; /* Tom laranja suave */
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    #countdown {
-      text-align: center;
-      font-size: 3rem;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="countdown"></div>
-
-  <script>
-    const countdown = document.getElementById('countdown');
-    const targetDate = new Date('2025-02-28T23:59:59').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const timeLeft = targetDate - now;
-
-      if (timeLeft <= 0) {
-        countdown.textContent = "O evento chegou!";
-        return;
-      }
-
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000)) / 1000);
-
-      countdown.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+  <div class="countdown-container">
+    <div class="countdown">
+      <div id="days" class="time-block"><span id="day-num">00</span><span>dias</span></div>
+      <div id="hours" class="time-block"><span id="hour-num">00</span><span>horas</span></div>
+      <div id="minutes" class="time-block"><span id="minute-num">00</span><span>minutos</span></div>
+      <div id="seconds" class="time-block"><span id="second-num">00</span><span>segundos</span></div>
+    </div>
+    <div id="message" class="message"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ff8c00; /* Laranja suave */
+  color: white;
+  text-align: center;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown {
+  display: flex;
+  gap: 30px;
+  font-size: 3em;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-block span {
+  font-size: 0.5em;
+  color: #ffcc00; /* Um tom dourado */
+}
+
+#message {
+  margin-top: 30px;
+  font-size: 1.5em;
+}
+
+@keyframes countdownAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.time-block span {
+  animation: countdownAnimation 1s ease-in-out infinite;
+}
+// Definir a data final
+const countdownDate = new Date("Feb 28, 2025 00:00:00").getTime();
+
+// Atualizar o countdown a cada 1 segundo
+const countdownFunction = setInterval(function() {
+
+  // Obter a data e hora atual
+  const now = new Date().getTime();
+
+  // Calcular a diferença entre a data final e a data atual
+  const distance = countdownDate - now;
+
+  // Calcular o tempo restante em dias, horas, minutos e segundos
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Atualizar os valores no HTML
+  document.getElementById("day-num").innerHTML = days;
+  document.getElementById("hour-num").innerHTML = hours;
+  document.getElementById("minute-num").innerHTML = minutes;
+  document.getElementById("second-num").innerHTML = seconds;
+
+  // Se o countdown terminar
+  if (distance < 0) {
+    clearInterval(countdownFunction);
+    document.getElementById("message").innerHTML = "O evento chegou!";
+    document.querySelector('.countdown').style.display = 'none'; // Esconde o countdown
+  }
+}, 1000);
