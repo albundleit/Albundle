@@ -12,26 +12,26 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #ff8c00; /* Laranja suave */
+      background-color: #ff4500; /* Laranja forte */
       color: white;
       text-align: center;
+      margin: 0;
     }
 
     .countdown-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-size: 5em;
+      letter-spacing: 5px;
     }
 
     .countdown {
       display: flex;
-      gap: 30px;
-      font-size: 3em;
+      justify-content: center;
+      gap: 10px;
     }
 
     .time-block {
@@ -41,44 +41,29 @@
     }
 
     .time-block span {
-      font-size: 0.5em;
-      color: #ffcc00; /* Um tom dourado */
+      font-size: 0.4em;
+      font-weight: bold;
     }
 
-    #message {
-      margin-top: 30px;
-      font-size: 1.5em;
+    /* Estilo da fonte */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+    .countdown-container {
+      font-family: 'Roboto', sans-serif;
     }
 
-    @keyframes countdownAnimation {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .time-block span {
-      animation: countdownAnimation 1s ease-in-out infinite;
-    }
   </style>
 </head>
 <body>
   <div class="countdown-container">
     <div class="countdown">
-      <div id="days" class="time-block"><span id="day-num">00</span><span>dias</span></div>
-      <div id="hours" class="time-block"><span id="hour-num">00</span><span>horas</span></div>
-      <div id="minutes" class="time-block"><span id="minute-num">00</span><span>minutos</span></div>
-      <div id="seconds" class="time-block"><span id="second-num">00</span><span>segundos</span></div>
+      <div id="days" class="time-block"><span id="day-num">00</span></div>
+      <div class="time-block"><span>:</span></div>
+      <div id="hours" class="time-block"><span id="hour-num">00</span></div>
+      <div class="time-block"><span>:</span></div>
+      <div id="minutes" class="time-block"><span id="minute-num">00</span></div>
+      <div class="time-block"><span>:</span></div>
+      <div id="seconds" class="time-block"><span id="second-num">00</span></div>
     </div>
-    <div id="message" class="message"></div>
   </div>
 
   <script>
@@ -101,16 +86,15 @@
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Atualizar os valores no HTML
-      document.getElementById("day-num").innerHTML = days;
-      document.getElementById("hour-num").innerHTML = hours;
-      document.getElementById("minute-num").innerHTML = minutes;
-      document.getElementById("second-num").innerHTML = seconds;
+      document.getElementById("day-num").innerHTML = String(days).padStart(2, '0');
+      document.getElementById("hour-num").innerHTML = String(hours).padStart(2, '0');
+      document.getElementById("minute-num").innerHTML = String(minutes).padStart(2, '0');
+      document.getElementById("second-num").innerHTML = String(seconds).padStart(2, '0');
 
       // Se o countdown terminar
       if (distance < 0) {
         clearInterval(countdownFunction);
-        document.getElementById("message").innerHTML = "O evento chegou!";
-        document.querySelector('.countdown').style.display = 'none'; // Esconde o countdown
+        document.querySelector('.countdown').innerHTML = "00:00:00:00"; // Exibe a data final
       }
     }, 1000);
   </script>
