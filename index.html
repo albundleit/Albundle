@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albundle Countdown</title>
+  <style>
+    /* Add your CSS here */
+    body {
+      background-color: orange; /* Orange background */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    #logo {
+      max-width: 200px; /* Adjust the size of your logo */
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <!-- Add your logo here -->
+  <img id="logo" src="logo.png" alt="Albundle Logo">
+
+  <!-- Countdown timer -->
+  <div id="countdown"></div>
+
+  <script>
+    // Set the countdown date (February 28th)
+    const countdownDate = new Date("February 28, 2025 00:00:00").getTime();
+
+    // Update the countdown every second
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      // Calculate days, hours, minutes, and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the countdown
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+      // If the countdown is over, display a message
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "The countdown is over!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
