@@ -4,7 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Countdown</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #ff8c00; /* Laranja suave */
+      color: white;
+      text-align: center;
+    }
+
+    .countdown-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 30px;
+      font-size: 3em;
+    }
+
+    .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .time-block span {
+      font-size: 0.5em;
+      color: #ffcc00; /* Um tom dourado */
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 1.5em;
+    }
+
+    @keyframes countdownAnimation {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .time-block span {
+      animation: countdownAnimation 1s ease-in-out infinite;
+    }
+  </style>
 </head>
 <body>
   <div class="countdown-container">
@@ -16,100 +80,39 @@
     </div>
     <div id="message" class="message"></div>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    // Definir a data final
+    const countdownDate = new Date("Feb 28, 2025 00:00:00").getTime();
+
+    // Atualizar o countdown a cada 1 segundo
+    const countdownFunction = setInterval(function() {
+
+      // Obter a data e hora atual
+      const now = new Date().getTime();
+
+      // Calcular a diferença entre a data final e a data atual
+      const distance = countdownDate - now;
+
+      // Calcular o tempo restante em dias, horas, minutos e segundos
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Atualizar os valores no HTML
+      document.getElementById("day-num").innerHTML = days;
+      document.getElementById("hour-num").innerHTML = hours;
+      document.getElementById("minute-num").innerHTML = minutes;
+      document.getElementById("second-num").innerHTML = seconds;
+
+      // Se o countdown terminar
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("message").innerHTML = "O evento chegou!";
+        document.querySelector('.countdown').style.display = 'none'; // Esconde o countdown
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #ff8c00; /* Laranja suave */
-  color: white;
-  text-align: center;
-}
-
-.countdown-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.countdown {
-  display: flex;
-  gap: 30px;
-  font-size: 3em;
-}
-
-.time-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.time-block span {
-  font-size: 0.5em;
-  color: #ffcc00; /* Um tom dourado */
-}
-
-#message {
-  margin-top: 30px;
-  font-size: 1.5em;
-}
-
-@keyframes countdownAnimation {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.time-block span {
-  animation: countdownAnimation 1s ease-in-out infinite;
-}
-// Definir a data final
-const countdownDate = new Date("Feb 28, 2025 00:00:00").getTime();
-
-// Atualizar o countdown a cada 1 segundo
-const countdownFunction = setInterval(function() {
-
-  // Obter a data e hora atual
-  const now = new Date().getTime();
-
-  // Calcular a diferença entre a data final e a data atual
-  const distance = countdownDate - now;
-
-  // Calcular o tempo restante em dias, horas, minutos e segundos
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  // Atualizar os valores no HTML
-  document.getElementById("day-num").innerHTML = days;
-  document.getElementById("hour-num").innerHTML = hours;
-  document.getElementById("minute-num").innerHTML = minutes;
-  document.getElementById("second-num").innerHTML = seconds;
-
-  // Se o countdown terminar
-  if (distance < 0) {
-    clearInterval(countdownFunction);
-    document.getElementById("message").innerHTML = "O evento chegou!";
-    document.querySelector('.countdown').style.display = 'none'; // Esconde o countdown
-  }
-}, 1000);
