@@ -1,102 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #ff4500; /* Laranja forte */
-      color: white;
-      text-align: center;
-      margin: 0;
-    }
-
-    .countdown-container {
-      font-size: 5em;
-      letter-spacing: 5px;
-    }
-
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .time-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .time-block span {
-      font-size: 0.4em;
-      font-weight: bold;
-    }
-
-    /* Estilo da fonte */
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
-    .countdown-container {
-      font-family: 'Roboto', sans-serif;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campanha Albundle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #ff7f00, #ff5500); /* Gradiente laranja */
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .cta-button:hover {
+            background: linear-gradient(135deg, #ff5500, #ff7f00); /* Inverte o gradiente */
+            transform: scale(1.1); /* Aumenta o tamanho do botão suavemente */
+        }
+    </style>
 </head>
 <body>
-  <div class="countdown-container">
-    <div class="countdown">
-      <div id="days" class="time-block"><span id="day-num">00</span></div>
-      <div class="time-block"><span>:</span></div>
-      <div id="hours" class="time-block"><span id="hour-num">00</span></div>
-      <div class="time-block"><span>:</span></div>
-      <div id="minutes" class="time-block"><span id="minute-num">00</span></div>
-      <div class="time-block"><span>:</span></div>
-      <div id="seconds" class="time-block"><span id="second-num">00</span></div>
+    <div class="button-container">
+        <a href="https://igg.me/at/albundle/x/38307907#/" class="cta-button" target="_blank">
+            Apoie a campanha Albundle
+        </a>
     </div>
-  </div>
-
-  <script>
-    // Definir a data final
-    const countdownDate = new Date("Feb 28, 2025 00:00:00").getTime();
-
-    // Atualizar o countdown a cada 1 segundo
-    const countdownFunction = setInterval(function() {
-
-      // Obter a data e hora atual
-      const now = new Date().getTime();
-
-      // Calcular a diferença entre a data final e a data atual
-      const distance = countdownDate - now;
-
-      // Calcular o tempo restante em dias, horas, minutos e segundos
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Atualizar os valores no HTML
-      document.getElementById("day-num").innerHTML = String(days).padStart(2, '0');
-      document.getElementById("hour-num").innerHTML = String(hours).padStart(2, '0');
-      document.getElementById("minute-num").innerHTML = String(minutes).padStart(2, '0');
-      document.getElementById("second-num").innerHTML = String(seconds).padStart(2, '0');
-
-      // Se o countdown terminar
-      if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.querySelector('.countdown').innerHTML = "00:00:00:00"; // Exibe a data final
-      }
-    }, 1000);
-  </script>
 </body>
 </html>
