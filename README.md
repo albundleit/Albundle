@@ -1,11 +1,11 @@
-# Albundle  
 
-Albundle is a next-generation management platform for artists and music producers.  
-🚀 Currently in development... Stay tuned!  
+  # Albundle Mobile App MVP
 
-## Features (Upcoming)  
-- Project and release management  
-- Collaboration tools  
-- Task tracking and reminders  
+  This is a code bundle for Albundle Mobile App MVP. The original project is available at https://www.figma.com/design/94TKSDiY3Mg94iqWyHcYTt/Albundle-Mobile-App-MVP.
 
-More details coming soon!
+  ## Running the code
+
+  Run `npm i` to install the dependencies.
+
+  Run `npm run dev` to start the development server.
+  
